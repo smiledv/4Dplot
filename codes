@@ -1,0 +1,30 @@
+import plotly.graph_objects as go
+import pandas as pd
+import plotly.express as px
+import os
+
+os.chdir("C:\\Users\\faara\\Desktop\\OUR")
+print("The Current working directory is: {0}".format(os.getcwd()))
+
+# Read data from a xlsx
+df = pd.read_excel("Data_Aug.15.2023.xlsx")
+
+df = df.loc[(df["O2"] == "N") & (df["Methanol Conc."] < 60)]
+
+# Different dilution rates
+df_15 = df.loc[(df["Dilution Rate"] == 0.15)]
+df_20 = df.loc[(df["Dilution Rate"] == 0.20)]
+df_25 = df.loc[(df["Dilution Rate"] == 0.25)]
+
+# 3D scatter plot
+fig = px.scatter_3d(df_15, x='OUR', y='Methanol Conc.', z='Productivity',
+                    color='N fed kg/h', text="Sample", title="Dilution rate 0.15")
+fig.show()
+
+fig = px.scatter_3d(df_20, x='OUR', y='Methanol Conc.', z='Productivity', 
+                    color='N fed kg/h',text="Sample",  title="Dilution rate 0.20")
+fig.show()
+
+fig = px.scatter_3d(df_25, x='OUR', y='Methanol Conc.', z='Productivity',
+                    color='N fed kg/h', text="Sample", title="Dilution rate 0.25")
+fig.show()
